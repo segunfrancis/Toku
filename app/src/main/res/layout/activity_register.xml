@@ -31,7 +31,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="Username"
-            app:set_floatingLabel="normal" />
+            android:inputType="text"
+            app:met_clearButton="true"
+            app:met_floatingLabel="normal" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/email"
@@ -40,7 +42,9 @@
             android:layout_marginTop="16dp"
             android:hint="Email"
             android:inputType="textEmailAddress"
-            app:set_floatingLabel="normal" />
+            app:met_validateOnFocusLost="true"
+            app:met_clearButton="true"
+            app:met_floatingLabel="normal" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/password"
@@ -49,17 +53,18 @@
             android:layout_marginTop="16dp"
             android:hint="Password"
             android:inputType="textPassword"
-            app:set_floatingLabel="normal" />
+            app:met_clearButton="true"
+            app:met_floatingLabel="normal" />
 
         <Button
             android:id="@+id/button_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:background="@color/colorPrimaryDark"
             android:text="register"
             android:textAllCaps="true"
-            android:layout_marginTop="16dp"
-            android:textColor="#FFF" />
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </RelativeLayout>

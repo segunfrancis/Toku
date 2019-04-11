@@ -36,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
     @BindView(R.id.email)
     MaterialEditText email;
 
-    @BindView(R.id.packed)
+    @BindView(R.id.password)
     MaterialEditText password;
 
     @BindView(R.id.button_register)
@@ -52,7 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Register");
+        getSupportActionBar().setTitle("Register");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         auth = FirebaseAuth.getInstance();
@@ -60,8 +60,8 @@ public class RegisterActivity extends AppCompatActivity {
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String textUsername = username.getText().toString();
-                String textEmail = email.getText().toString();
+                String textUsername = username.getText().toString().trim();
+                String textEmail = email.getText().toString().trim();
                 String textPassword = password.getText().toString();
 
                 if (TextUtils.isEmpty(textUsername) || TextUtils.isEmpty(textEmail)
@@ -103,6 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
+                                        finish();
                                     }
                                 }
                             });
@@ -120,6 +121,6 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 });
 
-        
+
     }
 }
