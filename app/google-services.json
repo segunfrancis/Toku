@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "357360425980",
+    "firebase_url": "https://toku-70159.firebaseio.com",
+    "project_id": "toku-70159",
+    "storage_bucket": "toku-70159.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357360425980:android:64d523269a10cd3e",
+        "android_client_info": {
+          "package_name": "com.example.computer.toku"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "357360425980-2r2hls1ptg0e1djq9lu6d83pt5ivcj95.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.computer.toku",
+            "certificate_hash": "8ac05557f6fa7db84dc9199285ae58fc0edaaa42"
+          }
+        },
+        {
+          "client_id": "357360425980-tvh6eu8f40rg8j5sh7vvl59sfd8numtc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJ8f90WhQY9hAahc-66WvWJu4rRkdwoXU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "357360425980-tvh6eu8f40rg8j5sh7vvl59sfd8numtc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
