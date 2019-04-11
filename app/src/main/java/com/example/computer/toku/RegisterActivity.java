@@ -66,9 +66,11 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(textUsername) || TextUtils.isEmpty(textEmail)
                         || TextUtils.isEmpty(textPassword)) {
-                    Toast.makeText(RegisterActivity.this, "All fields are required", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "All fields are required",
+                            Toast.LENGTH_SHORT).show();
                 } else if (textPassword.length() < 6) {
-                    Toast.makeText(RegisterActivity.this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Password must be at least 6 characters",
+                            Toast.LENGTH_SHORT).show();
                 } else {
                     register(textUsername, textEmail, textPassword);
                 }
@@ -105,16 +107,19 @@ public class RegisterActivity extends AppCompatActivity {
                                 }
                             });
                         } else {
-                            Toast.makeText(RegisterActivity.this, "You can't register with this username or password", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this,
+                                    "You can't register with this username or password", Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-
+                        Toast.makeText(RegisterActivity.this, "Check Network Connection",
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
 
+        
     }
 }
