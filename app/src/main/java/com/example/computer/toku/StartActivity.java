@@ -25,6 +25,7 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         // Checks if user is already signed in
