@@ -23,18 +23,23 @@ public class StartActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
-        ButterKnife.bind(this);
-
+    protected void onStart() {
+        super.onStart();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
         // Checks if user is already signed in
         if (firebaseUser != null) {
             Intent intent = new Intent(StartActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_start);
+        ButterKnife.bind(this);
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
