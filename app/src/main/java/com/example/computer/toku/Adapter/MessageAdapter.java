@@ -6,9 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.computer.toku.R;
-import com.example.computer.toku.model.User;
+import com.example.computer.toku.model.Chat;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
@@ -18,35 +23,66 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public static final int MSG_TYPE_RIGHT = 1;
 
     private Context mContext;
-    private List<User> mUser;
+    private List<Chat> mChat;
+    private String imageURL;
 
-    public MessageAdapter(Context mContext, List<User> mUser) {
+    FirebaseUser firebaseUser;
+
+    public MessageAdapter(Context mContext, List<Chat> mChat, String imageURL) {
         this.mContext = mContext;
-        this.mUser = mUser;
+        this.mChat = mChat;
+        this.imageURL = imageURL;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.chat_item_left, viewGroup, false);
-        return new MessageAdapter.ViewHolder(view);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+        if (viewType == MSG_TYPE_RIGHT) {
+            View view = LayoutInflater.from(mContext).inflate(R.layout.chat_item_right, viewGroup, false);
+            return new MessageAdapter.ViewHolder(view);
+        } else {
+            View view = LayoutInflater.from(mContext).inflate(R.layout.chat_item_left, viewGroup, false);
+            return new MessageAdapter.ViewHolder(view);
+        }
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-
+        Chat chat = mChat.get(i);
+        viewHolder.showMessage.setText(chat.getMessage());
+        if (imageURL.equals("default")) {
+            viewHolder.profileImage.setImageResource(R.mipmap.ic_launcher);
+        } else {
+            Glide.with(mContext).load(imageURL).into(viewHolder.profileImage);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mUser.size();
+        return mChat.size();
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        public TextView showMessage;
+        public ImageView profileImage;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            showMessage = itemView.findViewById(R.id.show_message);
+            profileImage = itemView.findViewById(R.id.profile_image);
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (mChat.get(position).getSender().equals(firebaseUser.getUid())) {
+            return MSG_TYPE_RIGHT;
+        } else {
+            return MSG_TYPE_LEFT;
         }
     }
 }
