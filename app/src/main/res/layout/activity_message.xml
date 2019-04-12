@@ -38,7 +38,15 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_messages"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom"
+        android:layout_below="@id/bar_layout"/>
+
     <RelativeLayout
+        android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -50,15 +58,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/button_send"
+            android:layout_toStartOf="@id/button_send"
             android:background="@android:color/transparent"
+            android:maxLines="6"
             android:hint="Type a message..." />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/button_send"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_action_send" />
+            android:background="@drawable/ic_action_send" />
     </RelativeLayout>
 </RelativeLayout>

@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -18,6 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -29,6 +33,12 @@ public class MessageActivity extends AppCompatActivity {
 
     @BindView(R.id.username)
     TextView username;
+
+    @BindView(R.id.button_send)
+    ImageButton buttonSend;
+
+    @BindView(R.id.text_send)
+    EditText textSend;
 
     FirebaseUser firebaseUser;
     DatabaseReference reference;
@@ -53,8 +63,21 @@ public class MessageActivity extends AppCompatActivity {
 
         intent = getIntent();
         final String userId = intent.getStringExtra("userId");
-
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        buttonSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String message = textSend.getText().toString().trim();
+                if (!message.equals("")) {
+                    sendMessage(firebaseUser.getUid(), userId, message);
+                } else {
+                    return;
+                }
+                textSend.setText("");
+            }
+        });
+
         reference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
 
         reference.addValueEventListener(new ValueEventListener() {
@@ -74,5 +97,16 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void sendMessage(String sender, String receiver, String message) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("sender", sender);
+        hashMap.put("receiver", receiver);
+        hashMap.put("message", message);
+
+        reference.child("chats").push().setValue(hashMap);
     }
 }
