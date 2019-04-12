@@ -3,6 +3,7 @@ package com.example.computer.toku;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -27,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.username)
     TextView username;
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
     FirebaseUser firebaseUser;
     DatabaseReference reference;
 
@@ -35,6 +39,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users")
@@ -48,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 if (user.getImageURL().equals("default")) {
                     profileImage.setImageResource(R.mipmap.ic_launcher);
                 } else {
-                    Glide.with(MainActivity.this).load()
+                    Glide.with(MainActivity.this).load(user.getImageURL()).into(profileImage);
                 }
             }
 
