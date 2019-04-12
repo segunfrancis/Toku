@@ -9,15 +9,14 @@ import android.view.ViewGroup;
 
 import com.example.computer.toku.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class ChatsFragment extends Fragment {
+
+public class UsersFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chats, container, false);
+        return inflater.inflate(R.layout.fragment_users, container, false);
     }
+
 }
