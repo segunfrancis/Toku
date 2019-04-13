@@ -46,11 +46,9 @@ public class MessageActivity extends AppCompatActivity {
     @BindView(R.id.text_send)
     EditText textSend;
 
-    @BindView(R.id.recycler_view_messages)
-    RecyclerView recyclerView;
-
-
+    MessageAdapter messageAdapter;
     List<Chat> mChat;
+    RecyclerView recyclerView;
 
     FirebaseUser firebaseUser;
     DatabaseReference reference;
@@ -69,16 +67,10 @@ public class MessageActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                startActivity(new Intent(MessageActivity.this, MainActivity.class)
+                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
-
-
-
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        layoutManager.setStackFromEnd(true);
-        recyclerView.setLayoutManager(layoutManager);
 
         intent = getIntent();
         final String userId = intent.getStringExtra("userId");
@@ -97,19 +89,24 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
+        recyclerView = findViewById(R.id.recycler_view_messages);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        linearLayoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
         reference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
+                final User user = dataSnapshot.getValue(User.class);
                 username.setText(user.getUsername());
                 if (user.getImageURL().equals("default")) {
                     profileImage.setImageResource(R.mipmap.ic_launcher);
                 } else {
                     Glide.with(MessageActivity.this).load(user.getImageURL()).into(profileImage);
                 }
-
                 readMessages(firebaseUser.getUid(), userId, user.getImageURL());
             }
 
@@ -134,7 +131,7 @@ public class MessageActivity extends AppCompatActivity {
     private void readMessages(final String myId, final String userId, final String imageURL) {
         mChat = new ArrayList<>();
 
-        reference = FirebaseDatabase.getInstance().getReference("Chats");
+        reference = FirebaseDatabase.getInstance().getReference("chats");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -142,13 +139,12 @@ public class MessageActivity extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Chat chat = snapshot.getValue(Chat.class);
                     if (chat.getReceiver().equals(myId) && chat.getSender().equals(userId) ||
-                    chat.getReceiver().equals(userId) && chat.getSender().equals(myId)) {
+                            chat.getReceiver().equals(userId) && chat.getSender().equals(myId)) {
                         mChat.add(chat);
                     }
-                    MessageAdapter messageAdapter = new MessageAdapter(MessageActivity.this, mChat, imageURL);
+                    messageAdapter = new MessageAdapter(MessageActivity.this, mChat, imageURL);
                     recyclerView.setAdapter(messageAdapter);
                 }
-
             }
 
             @Override

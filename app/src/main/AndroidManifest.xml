@@ -3,7 +3,7 @@
     xmlns:dist="http://schemas.android.com/apk/distribution"
     package="com.example.computer.toku">
 
-    <dist:module dist:instant="true" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MessageActivity"></activity>
+        <activity android:name=".MessageActivity" />
+
         <!-- StartActivity -->
         <activity android:name=".StartActivity">
             <intent-filter>
@@ -21,13 +22,19 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- LoginActivity -->
+        </activity>
+
+        <!-- LoginActivity -->
         <activity
             android:name=".LoginActivity"
-            android:parentActivityName=".StartActivity" /> <!-- RegisterActivity -->
+            android:parentActivityName=".StartActivity" />
+
+        <!-- RegisterActivity -->
         <activity
             android:name=".RegisterActivity"
-            android:parentActivityName=".StartActivity" /> <!-- MainActivity -->
+            android:parentActivityName=".StartActivity" />
+
+        <!-- MainActivity -->
         <activity android:name=".MainActivity" />
     </application>
 
