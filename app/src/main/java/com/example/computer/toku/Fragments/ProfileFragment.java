@@ -1,5 +1,6 @@
 package com.example.computer.toku.Fragments;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -28,6 +31,11 @@ public class ProfileFragment extends Fragment {
 
     DatabaseReference reference;
     FirebaseUser firebaseUser;
+
+    StorageReference storageReference;
+    private Uri imageUri;
+    private StorageTask uploadTask;
+    private static final int IMAGE_REQUEST = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
