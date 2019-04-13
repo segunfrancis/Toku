@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.computer.toku.Fragments.ChatsFragment;
+import com.example.computer.toku.Fragments.ProfileFragment;
 import com.example.computer.toku.Fragments.UsersFragment;
 import com.example.computer.toku.model.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -84,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragment(new ChatsFragment(), "Chats");
         viewPagerAdapter.addFragment(new UsersFragment(), "Users");
+        viewPagerAdapter.addFragment(new ProfileFragment(), "Profile");
+
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
     }
