@@ -110,6 +110,7 @@ public class ProfileFragment extends Fragment {
         final ProgressDialog pd = new ProgressDialog(getContext());
         pd.setTitle("Uploading...");
         pd.show();
+        pd.setCanceledOnTouchOutside(false);
 
         if (imageUri != null) {
             final StorageReference fileReference = storageReference.child(System.currentTimeMillis()
