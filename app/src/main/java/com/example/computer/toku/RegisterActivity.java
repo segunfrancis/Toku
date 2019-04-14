@@ -96,6 +96,7 @@ public class RegisterActivity extends AppCompatActivity {
                             hashMap.put("username", username);
                             hashMap.put("imageURL", "default");
                             hashMap.put("status", "offline");
+                            hashMap.put("search", username.toLowerCase().trim());
 
                             reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -117,7 +118,7 @@ public class RegisterActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(RegisterActivity.this, "Check Network Connection",
+                        Toast.makeText(RegisterActivity.this, e.getMessage(),
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
