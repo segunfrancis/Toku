@@ -17,14 +17,18 @@ import com.example.computer.toku.model.User;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     private Context mContext;
     private List<User> mUsers;
+    private boolean isChat;
 
-    public UserAdapter(Context mContext, List<User> mUsers) {
+    public UserAdapter(Context mContext, List<User> mUsers, boolean isChat) {
         this.mContext = mContext;
         this.mUsers = mUsers;
+        this.isChat = isChat;
     }
 
     @NonNull
@@ -42,6 +46,19 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             viewHolder.profileImage.setImageResource(R.mipmap.ic_launcher);
         } else {
             Glide.with(mContext).load(user.getImageURL()).into(viewHolder.profileImage);
+        }
+
+        if (isChat) {
+            if (user.getStatus().equals("online")) {
+                viewHolder.imgOn.setVisibility(View.VISIBLE);
+                viewHolder.imgOff.setVisibility(View.GONE);
+            } else {
+                viewHolder.imgOn.setVisibility(View.GONE);
+                viewHolder.imgOff.setVisibility(View.VISIBLE);
+            }
+        } else {
+            viewHolder.imgOn.setVisibility(View.GONE);
+            viewHolder.imgOff.setVisibility(View.GONE);
         }
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,12 +78,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView username;
         public ImageView profileImage;
+        public CircleImageView imgOn;
+        public CircleImageView imgOff;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             username = itemView.findViewById(R.id.username);
             profileImage = itemView.findViewById(R.id.profile_image);
+            imgOn = itemView.findViewById(R.id.img_on);
+            imgOff = itemView.findViewById(R.id.img_off);
         }
     }
 }
