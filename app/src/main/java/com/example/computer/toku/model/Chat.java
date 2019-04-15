@@ -41,7 +41,7 @@ public class Chat {
         this.message = message;
     }
 
-    public boolean isSeen() {
+    public boolean getSeen() {
         return isSeen;
     }
 
