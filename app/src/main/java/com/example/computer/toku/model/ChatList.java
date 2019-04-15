@@ -2,7 +2,7 @@ package com.example.computer.toku.model;
 
 public class ChatList {
 
-    private String id;
+    public String id;
 
     public ChatList() {
     }
