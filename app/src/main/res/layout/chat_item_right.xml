@@ -28,5 +28,12 @@
             android:text="Hello"
             android:textColor="@color/white"
             android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/last_seen"
+            android:layout_below="@id/show_message"
+            android:layout_alignParentEnd="true"/>
     </RelativeLayout>
 </RelativeLayout>
