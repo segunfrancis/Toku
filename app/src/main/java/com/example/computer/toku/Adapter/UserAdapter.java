@@ -13,7 +13,15 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.computer.toku.MessageActivity;
 import com.example.computer.toku.R;
+import com.example.computer.toku.model.Chat;
 import com.example.computer.toku.model.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -24,6 +32,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     private Context mContext;
     private List<User> mUsers;
     private boolean isChat;
+    private String theLastMessage;
 
     public UserAdapter(Context mContext, List<User> mUsers, boolean isChat) {
         this.mContext = mContext;
@@ -46,6 +55,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             viewHolder.profileImage.setImageResource(R.mipmap.ic_launcher);
         } else {
             Glide.with(mContext).load(user.getImageURL()).into(viewHolder.profileImage);
+        }
+
+        // Displaying last message
+        if (isChat) {
+            lastMessageCheck(user.getId(), viewHolder.lastMessage);
+        } else {
+            viewHolder.lastMessage.setVisibility(View.GONE);
         }
 
         if (isChat) {
@@ -80,6 +96,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         public ImageView profileImage;
         public CircleImageView imgOn;
         public CircleImageView imgOff;
+        public TextView lastMessage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -88,6 +105,40 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             profileImage = itemView.findViewById(R.id.profile_image);
             imgOn = itemView.findViewById(R.id.img_on);
             imgOff = itemView.findViewById(R.id.img_off);
+            lastMessage = itemView.findViewById(R.id.last_image);
         }
+    }
+
+    private void lastMessageCheck(final String userId, final TextView lastMessage) {
+        theLastMessage = "default";
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("chats");
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Chat chat = snapshot.getValue(Chat.class);
+                    if (chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userId)
+                            || chat.getReceiver().equals(userId) && chat.getSender().equals(firebaseUser.getUid())) {
+                        theLastMessage = chat.getMessage();
+                    }
+                }
+                switch (theLastMessage) {
+                    case "default":
+                        lastMessage.setText("No Message");
+                        break;
+                    default:
+                        lastMessage.setText(theLastMessage);
+                        break;
+                }
+                theLastMessage = "default";
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

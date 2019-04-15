@@ -18,7 +18,6 @@
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_marginStart="12dp"
         android:layout_toEndOf="@id/profile_image"
         android:text="Username"
@@ -27,8 +26,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_on"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
         android:layout_below="@id/username"
         android:layout_marginStart="-16dp"
         android:layout_marginTop="10dp"
@@ -40,8 +39,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_off"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
         android:layout_below="@id/username"
         android:layout_marginStart="-16dp"
         android:layout_marginTop="10dp"
@@ -50,6 +49,18 @@
         android:visibility="gone"
         app:civ_border_color="@color/gray_800"
         app:civ_border_width="10dp" />
+
+    <TextView
+        android:id="@+id/last_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/username"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@id/profile_image"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/colorPrimaryDark" />
 
     <View
         android:layout_width="match_parent"
