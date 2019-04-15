@@ -89,7 +89,8 @@ public class ChatsFragment extends Fragment {
 
                     // display one user from chat
                     for (String id : usersList) {
-                        if (user.getId().equals(id)) {
+//                        assert user != null;
+                        if (user != null && user.getId() != null && user.getId().equals(id)) {
                             if (mUsers.size() != 0) {
                                 for (User user1 : mUsers) {
                                     if (!user.getId().equals(user1.getId())) {
