@@ -198,7 +198,9 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                sendNotification(receiver, user.getUsername(), msg);
+                if (notify) {
+                    sendNotification(receiver, user.getUsername(), msg);
+                }
                 notify = false;
             }
 
