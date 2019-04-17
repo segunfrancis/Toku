@@ -1,6 +1,7 @@
 package com.example.computer.toku;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -272,8 +273,13 @@ public class MessageActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-
         });
+    }
+
+    private void currentUser(String userId) {
+        SharedPreferences.Editor editor = getSharedPreferences("PREFS", MODE_PRIVATE).edit();
+        editor.putString("currentUser", userId);
+        editor.apply();
     }
 
     private void status(String status) {
@@ -289,6 +295,7 @@ public class MessageActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         status("online");
+        currentUser(userId);
     }
 
     @Override
@@ -296,5 +303,6 @@ public class MessageActivity extends AppCompatActivity {
         super.onPause();
         reference.removeEventListener(seenListener);
         status("offline");
+        currentUser("none");
     }
 }
