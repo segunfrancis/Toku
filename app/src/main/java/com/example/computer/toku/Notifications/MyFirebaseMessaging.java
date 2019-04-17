@@ -37,7 +37,10 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
         String body = remoteMessage.getData().get("body");
 
         RemoteMessage.Notification notification = remoteMessage.getNotification();
-        int j = Integer.parseInt(user.replaceAll("[\\D]", ""));/*Request Code*/
+        int j = 0;
+        if (user != null) {
+            j = Integer.parseInt(user.replaceAll("[\\D]", "")); /*Request Code*/
+        }
         Intent intent = new Intent(this, MessageActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("userId", user);
@@ -50,7 +53,8 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setSmallIcon(Integer.parseInt(icon))
                 .setContentTitle(title)
-                .setContentText(body).setAutoCancel(true)
+                .setContentText(body)
+                .setAutoCancel(true)
                 .setSound(defaultSound)
                 .setContentIntent(pendingIntent);
 
