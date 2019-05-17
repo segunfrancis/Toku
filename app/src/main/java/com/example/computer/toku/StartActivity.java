@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,6 +42,9 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         ButterKnife.bind(this);
+
+        // Offline Persistence
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override

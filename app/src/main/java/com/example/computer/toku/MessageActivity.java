@@ -78,6 +78,9 @@ public class MessageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_message);
         ButterKnife.bind(this);
 
+        // Offline Persistence
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");

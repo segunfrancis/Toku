@@ -59,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
 
+        // Offline Persistence
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users")
                 .child(firebaseUser.getUid());
