@@ -43,9 +43,6 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
         ButterKnife.bind(this);
 
-        // Offline Persistence
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
