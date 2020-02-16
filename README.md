@@ -23,5 +23,3 @@ Use the android studio _Build Variants_ button to choose between **production** 
 ![screen4](https://github.com/segunfrancis/Toku/blob/master/Screenshot_20200216-122917.png)
 ![screen5](https://github.com/segunfrancis/Toku/blob/master/Screenshot_20200216-123152.png)
 
-## APK file
-You can download the APK file for this project [here](https://drive.google.com/file/d/1G4-4BDmU24cpNowBZTYbm-dhlaLTVm-q/view?usp=drivesdk)
